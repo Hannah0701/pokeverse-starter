@@ -1,4 +1,9 @@
 import useSWR, { fetcher } from "./swr.js";
+import Header from "./Header.jsx";
+import PokemonCard from "./PokemonCard.jsx";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const POKE_API = "https://pokeapi.co/api/v2/pokemon?limit=151";
 
@@ -13,17 +18,21 @@ function App() {
     output = <p>Loading...</p>;
   } else {
     output = (
-      <ol className="text-capitalize">
-        {data.results.map((pokemon) => (
-          <li key={pokemon.name}>{pokemon.name}</li>
-        ))}
-      </ol>
+      <Container className="my-4">
+        <Row xs={1} sm={2} md={3} lg={4} xl={5} xxl={6} className="gy-4">
+          {data.results.map((pokemon) => (
+            <Col>
+              <PokemonCard key={pokemon.name} url={pokemon.url} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     );
   }
 
   return (
     <>
-      <h1>Pokéverse</h1>
+      <Header />
       {output}
     </>
   );
